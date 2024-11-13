@@ -1,0 +1,66 @@
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header */
+.header {
+    background-size: 102%;
+    background-image: linear-gradient(to bottom, transparent 50%, #8095db 100%), url("https://i.imgur.com/6PWjA70.jpeg");
+    background-repeat: no-repeat;
+}
+
+/* Contenedor de contenido principal */
+.content-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Footer sticky */
+.footer {
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+.sticky-radio-player {
+    position: sticky;
+    bottom: 0;
+}
+
+.marquee {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .marqueeitem {
+    display: inline-block;
+    padding: 5px 15px;
+    white-space: nowrap;
+    animation: marquee-content 10s linear infinite;
+  }
+  
+  .marquee:hover .marqueeitem {
+    animation-play-state: paused;
+  }
+  
+  /* Anima de izquierda a derecha */
+  @keyframes marquee-content {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  

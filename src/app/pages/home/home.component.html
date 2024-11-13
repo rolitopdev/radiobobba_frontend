@@ -1,1 +1,50 @@
-<p>home works!</p>
+<div class="marquee font-bold bg-[#8095db] text-[#f1ecb8]">
+    @for (message of repeatedMessages; track message.id) {
+    <div class="marqueeitem">{{ message.message }}</div>
+    }
+</div>
+
+<!-- Contenedor principal para el layout -->
+<div class="main-container bg-white">
+
+    <!-- Header -->
+    <div class="header bg-auto bg-center h-[450px] pt-4 pr-16 pb-0 pl-16 flex justify-center items-center">
+        <!-- <app-header></app-header> -->
+        <img src="https://i.imgur.com/Nb5RBAe.png" class="w-[400px]" draggable="false">
+    </div>
+
+    <!-- Contenedor del contenido principal -->
+    <div class="content-container pr-16 pb-0 pl-16">
+
+        <!-- Área principal de contenido -->
+        <main class="main-content pt-3 pb-3 items-center">
+            <!-- <h3 class="text-center">
+                ¡Estamos en mantenimiento! 🚧 Pero la radio sigue en vivo. Mientras tanto, disfruta de Frank cabalgando. ¡Volvemos pronto!
+            </h3>
+            <div class="flex justify-center">
+                <img class="w-[250px] h-[200px] object-cover" src="https://media1.tenor.com/m/u8p5jURSwokAAAAd/habbo-cowboys.gif" alt=""
+                draggable="false">
+            </div> -->
+        </main>
+
+    </div>
+
+    <!-- Barra Sticky en el Bottom -->
+    <div class="sticky-radio-player pt-4 pr-16 pb-0 pl-16">
+        <app-radio-player></app-radio-player>
+    </div>
+
+</div>
+
+<ng-template [(tuiPreviewDialog)]="open">
+    <tui-preview>
+        <tui-preview-title>{{ titles[index] }}</tui-preview-title>
+        <tui-preview-pagination [length]="length" [(index)]="index" />
+
+        <button iconStart="@tui.x" tuiIconButton tuiPreviewAction type="button" (click)="open = false">
+            Close
+        </button>
+
+        <img *polymorpheusOutlet="content[index] as src" alt="preview" [src]="src" />
+    </tui-preview>
+</ng-template>

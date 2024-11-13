@@ -1,0 +1,30 @@
+<div class="container-radio-player d-flex">
+
+    <div class="radio-player">
+        <h3>Reproductor de Radio</h3>
+
+        <!-- Botones de reproducción -->
+        <div class="controls">
+            <button (click)="play()" [disabled]="isPlaying">Reproducir</button>
+            <button (click)="pause()" [disabled]="!isPlaying">Pausar</button>
+            <button (click)="stop()" [disabled]="!isPlaying">Detener</button>
+        </div>
+
+        <!-- Control de volumen -->
+        <div class="volume-control">
+            <label for="volume">Volumen</label>
+            <input type="range" id="volume" min="0" max="1" step="0.01" [(ngModel)]="volume"
+                (input)="setVolume($event)" />
+            <span>{{ (volume * 100).toFixed(0) }}%</span>
+        </div>
+
+        @if(isPlaying) {
+            <p>Reproduciendo...</p>
+        }
+
+        @if(!isPlaying) {
+            <p>Pausado</p>
+        }
+    </div>
+
+</div>

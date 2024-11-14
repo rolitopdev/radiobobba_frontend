@@ -32,7 +32,7 @@ export class HomeComponent {
   protected open = true;
   protected index = 0;
   protected length = 1;
-  protected titles = ['Primera Parada'];
+  protected titles = ['Flyer'];
   protected content = [
     'https://i.imgur.com/OOOocmq.png'
   ];

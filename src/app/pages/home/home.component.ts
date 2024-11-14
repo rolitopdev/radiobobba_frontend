@@ -38,7 +38,7 @@ export class HomeComponent {
   ];
 
   public repeatedMessages: { id: number, message: string }[] = new Array(10)
-    .fill('TOMORROWHABBO ESTE 15-16 DE NOVIEMBRE, ¡NO TE LO PIERDAS! - X.COM/TomorrowHBB')
+    .fill('TOMORROWLAND TOUR RADIO ESTE 15-16 DE NOVIEMBRE, ¡NO TE LO PIERDAS! - X.COM/TomorrowHBB')
     .map((message, index) => ({ id: index, message }));
 
 }

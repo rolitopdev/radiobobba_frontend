@@ -20,7 +20,7 @@ export class RadioPlayerComponent {
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
   public volume: number = Number(localStorage.getItem('audioVolume')!) || 50;
-  public isPlaying: boolean = true;
+  public isPlaying: boolean = false;
 
   public syncInterval: any; // Intervalo para verificar sincronización
 

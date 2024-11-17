@@ -98,8 +98,9 @@ export class RadioPlayerComponent {
   getRadioInfo(): void {
     this._generalService.getRadioInfo().subscribe({
       next: async (response: any) => {
-        const { ulistener, djusername, title } = response;
-        this.radioObj = { listeners: ulistener, djusername, title };
+        const { listeners, djusername, title } = response;
+        this.radioObj = { listeners, djusername, title };
+        this.cdr.detectChanges();
       },
       error: (error) => {
         console.error('error getRadioInfo: ', error);

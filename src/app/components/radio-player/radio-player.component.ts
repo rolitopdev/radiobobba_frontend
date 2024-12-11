@@ -1,77 +1,54 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TuiIcon } from '@taiga-ui/core';
-import { interval, Subscription } from 'rxjs';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { GeneralService } from '../../services/general.service';
-import { TuiPulse } from '@taiga-ui/kit';
-import { NgStyle } from '@angular/common';
-import { FirebaseService } from '../../services/firebase.service';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-radio-player',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, NgStyle, TuiIcon, TuiPulse],
+  imports: [],
   templateUrl: './radio-player.component.html',
   styleUrl: './radio-player.component.scss'
 })
 
-export class RadioPlayerComponent {
+export class RadioPlayerComponent implements OnInit, AfterViewInit {
 
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
-  public volume: number = Number(localStorage.getItem('audioVolume')!) || 50;
+  public volume: number = Number(localStorage.getItem('audioVolume')!) || 40;
+
   public isPlaying: boolean = false;
 
+  public radioObj: any = {}; // Objeto para guardar la información de la radio (oyentes, djuser, title)
   public syncInterval: any; // Intervalo para verificar sincronización
 
   private updateSubscription: Subscription | null = null;
 
-  public djImage: string = 'https://www.habbo.com/habbo-imaging/avatarimage?figure=hr-5619-59-.hd-3096-10-.ch-3332-1424-89-.lg-3333-1430-.sh-3089-89-.he-1608-undefined-.fa-5467-undefined-.cc-4091-1340-&gender=M&direction=2&head_direction=2&action=gesture=nrm&&size=l';
-  public djName: string = 'AutoDJ';
-
-  public radioObj: any = {};
-
-  constructor(public _generalService: GeneralService, public _firebaseService: FirebaseService, public cdr: ChangeDetectorRef) { }
+  constructor(public _generalService: GeneralService, public cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    // Establecer el volumen cuando se inicie el componente
-    if (this.audioPlayer) {
-      this.audioPlayer.nativeElement.volume = this.volume; // Ajustar el volumen (escala de 0 a 1)
-    }
-
-    this.getRadioInfo(); // Hacemos la primera solicitud cuando el componente se inicializa
-    this.suscribeToFirebase(); // Hacemos la solicitud para suscribirnos a firebase.
-    // Hacemos la solicitud cada 30 segundos (30000 ms)
-    this.updateSubscription = interval(30000).subscribe(() => {
+    // Hacemos la primera solicitud cuando el componente se inicializa
+    this.getRadioInfo();
+    // Hacemos la solicitud cada 40 segundos (40000 ms)
+    this.updateSubscription = interval(40000).subscribe(() => {
       this.getRadioInfo();  // Repetir la solicitud cada 30 segundos
     });
-
   }
 
-  async suscribeToFirebase() {
+  ngAfterViewInit(): void {
+    if (this.audioPlayer) {
+      this.audioPlayer.nativeElement.volume = this.volume / 100;
+    }
+  }
 
-    await this._firebaseService.getItems('radio_info').subscribe({
-      next: async (response_firebase: any) => {
-        if (response_firebase[0].dj) {
-
-          if (response_firebase[0].dj === 'AutoDJ') {
-            this.djName = response_firebase[0].dj;
-            this.djImage = 'https://www.habbo.com/habbo-imaging/avatarimage?figure=hr-5619-59-.hd-3096-10-.ch-3332-1424-89-.lg-3333-1430-.sh-3089-89-.he-1608-undefined-.fa-5467-undefined-.cc-4091-1340-&gender=M&direction=2&head_direction=2&action=,wlk,crr=61&gesture=sml&size=l';
-            this.cdr.detectChanges();
-          } else {
-            await this._generalService.getHabboInfoByName(response_firebase[0].dj).subscribe({
-              next: async (response_habbo_info: any) => {
-                this.djName = response_firebase[0].dj;
-                this.djImage = `https://www.habbo.com/habbo-imaging/avatarimage?figure=${response_habbo_info.figureString}&gender=M&direction=2&head_direction=2&action=,wlk,crr=61&gesture=sml&size=l`;
-                this.cdr.detectChanges();
-              }
-            });
-          }
-
-        }
+  getRadioInfo() {
+    this._generalService.getRadioInfo().subscribe({
+      next: async (response: any) => {
+        const { listeners, djusername, title } = response;
+        this.radioObj = { listeners, djusername, title };
+        this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.log('error in suscribeToFirebase', err);
+      error: (error) => {
+        console.error('error getRadioInfo: ', error);
       }
     });
   }
@@ -84,28 +61,16 @@ export class RadioPlayerComponent {
       this.audioPlayer.nativeElement.play();
     }
     this.isPlaying = !this.isPlaying;
+    this.cdr.detectChanges();
   }
 
-  setVolume(event?: Event): void {
+  setVolume(): void {
     if (this.audioPlayer) {
       // Ajusta el volumen en el reproductor de audio
       this.audioPlayer.nativeElement.volume = this.volume / 100;
     }
     // Guardar el volumen en localStorage
     localStorage.setItem('audioVolume', this.volume.toString());
-  }
-
-  getRadioInfo(): void {
-    this._generalService.getRadioInfo().subscribe({
-      next: async (response: any) => {
-        const { listeners, djusername, title } = response;
-        this.radioObj = { listeners, djusername, title };
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('error getRadioInfo: ', error);
-      }
-    });
   }
 
   ngOnDestroy(): void {

@@ -29,16 +29,9 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@taiga-ui/icons/src",
-                "output": "assets/taiga-ui/icons"
               }
             ],
             "styles": [
-              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
               "src/styles.scss"
             ],
             "scripts": []
@@ -48,21 +41,15 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1.5MB",
-                  "maximumError": "1.7MB"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
-                  "type": "allScript",
-                  "maximumWarning": "2MB",
-                  "maximumError": "2.5MB"
-                },
-                {
-                  "type": "all",
-                  "maximumWarning": "5MB",
-                  "maximumError": "5MB"
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
-              ]
-
+              ],
               "outputHashing": "all"
             },
             "development": {
@@ -111,8 +98,5 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": false
   }
 }

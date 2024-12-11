@@ -1,91 +1,60 @@
 /* Contenedor principal */
 .main-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 /* Header */
 .header {
-  background-size: 123%;
-  background-image: linear-gradient(to bottom, transparent 50%, #8095db 100%), url("https://i.imgur.com/jva4fs4.png") !important;
-  background-repeat: no-repeat;
+    background-size: 120%;
+    background-image: linear-gradient(to bottom, transparent 50%, #000000 100%), url("https://i.imgur.com/jva4fs4.png") !important;
+    background-repeat: no-repeat;
 }
 
 /* Contenedor de contenido principal */
 .content-container {
-  display: flex;
-  flex-grow: 1;
-  overflow: hidden;
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 /* Main Content */
 .main-content {
-  flex-grow: 1;
-  overflow-y: auto;
-}
-
-/* Footer sticky */
-.footer {
-  position: relative;
-  width: 100%;
-  bottom: 0;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .sticky-radio-player {
-  position: sticky;
-  bottom: 0;
+    position: sticky;
+    bottom: 0;
 }
 
 .marquee {
-  display: flex;
-  width: 100%;
-  overflow: hidden;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
 }
 
 .marqueeitem {
-  display: inline-block;
-  padding: 5px 15px;
-  white-space: nowrap;
-  animation: marquee-content 10s linear infinite;
+    display: inline-block;
+    padding: 5px 15px;
+    white-space: nowrap;
+    animation: marquee-content 10s linear infinite;
+    font-size: 8px;
 }
 
 .marquee:hover .marqueeitem {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 /* Anima de izquierda a derecha */
 @keyframes marquee-content {
-  0% {
-    transform: translateX(100%);
-  }
+    0% {
+        transform: translateX(100%);
+    }
 
-  100% {
-    transform: translateX(-100%);
-  }
-}
-
-/* Estilo básico de la imagen */
-.flotante {
-  /* Hacerla redonda si es una imagen cuadrada */
-  animation: flotacion 2s ease-in-out infinite;
-  /* Animación */
-}
-
-/* Definir la animación */
-@keyframes flotacion {
-  0% {
-    transform: translateY(0);
-    /* Empezar en la posición original */
-  }
-
-  50% {
-    transform: translateY(-15px);
-    /* Subir hacia arriba */
-  }
-
-  100% {
-    transform: translateY(0);
-    /* Regresar a la posición original */
-  }
+    100% {
+        transform: translateX(-100%);
+    }
 }

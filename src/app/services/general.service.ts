@@ -17,7 +17,7 @@ export class GeneralService {
     return this.http.get<any>(this.apiRadioUrl).pipe(
       catchError((error) => {
         console.error('Error en la petición getRadioInfo: ', error);
-        throw error;  // Propagar el error
+        throw error;
       })
     );
   }
@@ -26,7 +26,7 @@ export class GeneralService {
     return this.http.get<any>(`https://www.habbo.es/api/public/users?name=${keko}`).pipe(
       catchError((error) => {
         console.error('Error en la petición getHabboInfoByName: ', error);
-        throw error;  // Propagar el error
+        throw error;
       })
     );
   }

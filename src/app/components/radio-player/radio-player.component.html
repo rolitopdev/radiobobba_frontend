@@ -1,62 +1,38 @@
-<div class="flex mb-2 rounded-lg bg-[#8095db] h-[100px]">
+<div class="w-[100%] p-5">
 
-    <audio #audioPlayer src="https://sonic.streamingchilenos.com/8074/stream">
-    </audio>
-
-    <!-- Primera parte: Keko -->
-    <div class="container-kekos flex w-[33.3%]">
-
-        <div class="background-keko h-[100%]">
-
-            <!-- @for (dj of djs; track dj) { -->
-            <img class="image-keko" [ngStyle]="{'background-image': 'url(' + djImage + ')', 'border': 'none'}">
-            <!-- } -->
-
-        </div>
-
-        <div class="ml-5 pt-2">
-            <ul>
-                <div class="text-[#f1ecb8] text-base font-semibold flex justify-center text-center">
-                    <div class="blob"></div>
-                    <div>En Directo</div>
-                </div>
-                <li class="text-[#f1ecb8] text-base font-semibold">{{ djName || 'AutoDJ' }}</li>
-                <li class="text-[#f1ecb8] text-base font-semibold">Oyentes: {{ radioObj.listeners || 0 }}</li>
-            </ul>
-        </div>
-
+    <div class="text-white text-[10px] font-semibold flex justify-center text-center">
+        <div class="blob"></div>
+        <div>En Directo</div>
     </div>
 
-    <!-- Segunda parte: Botón de Play/Pause -->
-    <div class="text-center w-[33.3%]">
-        <button size="l" tuiButton type="button" appearance="outline" (click)="togglePlay()">
-            @if(!isPlaying) {
-            <tui-icon icon="@tui.circle-play" [style.color]="'white'" [style.height.px]="'35'"
-                [style.width.px]="'35'" />
-            }
-            @if(isPlaying) {
-            <tui-icon icon="@tui.circle-pause" [style.color]="'white'" [style.height.px]="'35'"
-                [style.width.px]="'35'" />
-            }
-        </button>
+    <div class="relative h-12 text-center" (click)="togglePlay();">
+        <!-- Ícono de círculo -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-full h-full text-white">
+                <path d="M17 3H7v2H5v2H3v10h2v2h2v2h10v-2h2v-2h2V7h-2V5h-2V3zm0 2v2h2v10h-2v2H7v-2H5V7h2V5h10z"
+                    fill="currentColor" />
+            </svg>
+        </div>
 
-        @if (djName === 'AutoDJ') {
-        <div class="flex justify-center text-center">
-            <marquee class="text-[#f1ecb8] text-sm font-semibold w-36">
-                {{ radioObj.title}}
-            </marquee>
+        @if (!isPlaying) {
+        <!-- Ícono de play -->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-8 text-white">
+                <path d="M10 20H8V4h2v2h2v3h2v2h2v2h-2v2h-2v3h-2v2z" fill="currentColor" />
+            </svg>
         </div>
         }
 
-        <div class="text-[#e7e7e7] text-[10px]">Versión Beta v2.0</div>
-
+        @if (isPlaying) {
+        <!-- Ícono de pausa-->
+        <div class="absolute inset-0 flex items-center justify-center">
+            <svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6 text-white">
+                <path d="M10 4H5v16h5V4zm9 0h-5v16h5V4z" fill="currentColor" />
+            </svg>
+        </div>
+        }
     </div>
 
-    <!-- Tercera parte: Control de volumen -->
-    <div class="flex-1 flex w-[33.3%] justify-end mr-5 items-center">
-        <tui-icon icon="@tui.volume-2" [style.color]="'white'" />
-        <input class="ml-2 accent-[#f1ecb8]" type="range" id="volume" min="0" max="100" step="1" [(ngModel)]="volume"
-            (input)="setVolume($event)">
-    </div>
+    <audio #audioPlayer src="https://sonic.streamingchilenos.com/8074/stream"></audio>
 
 </div>

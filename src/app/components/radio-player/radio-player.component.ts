@@ -14,7 +14,7 @@ export class RadioPlayerComponent implements OnInit, AfterViewInit {
 
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
-  public volume: number = Number(localStorage.getItem('audioVolume')!) || 40;
+  public volume: number = 40;
 
   public isPlaying: boolean = false;
 

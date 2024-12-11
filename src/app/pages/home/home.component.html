@@ -1,13 +1,13 @@
-<div class="marquee font-bold bg-black text-white">
+<div class="marquee font-bold bg-black text-white p-2">
     @for (message of repeatedMessages; track message.id) {
-    <div class="marqueeitem text-xs">{{ message.message }}</div>
+    <div class="marqueeitem text-[12px]">{{ message.message }}</div>
     }
 </div>
 
 <div class="main-container bg-black">
 
     <!-- Header -->
-    <div class="header bg-auto bg-center h-[400px] pt-4 pr-16 pb-0 pl-16 flex justify-center items-center">
+    <div class="header bg-auto bg-center h-[500px] pt-4 pr-16 pb-0 pl-16 flex justify-center items-center">
         <!-- <app-header></app-header> -->
     </div>
 
@@ -15,9 +15,9 @@
     <div class="content-container pr-16 pb-0 pl-16">
 
         <main class="main-content pt-3 pb-3 items-center text-center text-white">
-            ¡Estamos preparando una nueva versión!<br>
-            Traeremos noticias pronto... <br>
-            <p class="text-[9px]">-Equipo de Radiobobba</p>
+            <p class="text-xl">¡Estamos preparando una nueva versión!<br></p>
+            <p class="text-xl">Traeremos noticias pronto... <br></p>
+            <p class="text-[10px]">-Equipo de Radiobobba</p>
         </main>
 
     </div>

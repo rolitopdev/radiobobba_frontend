@@ -12,7 +12,7 @@ export class GeneralService {
 
   constructor(public http: HttpClient) { }
 
-  // Método para hacer la petición al endpoint
+  // Método para hacer la petición al endpoint de la radio
   getRadioInfo(): Observable<any> {
     return this.http.get<any>(this.apiRadioUrl).pipe(
       catchError((error) => {
@@ -22,8 +22,9 @@ export class GeneralService {
     );
   }
 
+  // Método para hacer la petición al endpoint de la API de Habbo
   getHabboInfoByName(keko: string): Observable<any> {
-    return this.http.get<any>(`https://www.habbo.es/api/public/users?name=${keko}`).pipe(
+    return this.http.get<any>(`https://www.habbo.es/habbo-imaging/avatarimage?user=${keko}&headonly=0&size=b&gesture=sml&direction=2&head_direction=2&action=std`).pipe(
       catchError((error) => {
         console.error('Error en la petición getHabboInfoByName: ', error);
         throw error;
